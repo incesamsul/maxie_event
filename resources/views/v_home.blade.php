@@ -42,7 +42,7 @@
 	          <li class="nav-item"><a href="#" class="nav-link">Qrcode</a></li>
 	          <li class="nav-item"><a href="#" class="nav-link">Schedule</a></li>
 	          <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta mr-md-2"><a href="#" class="nav-link">Login</a></li>
+	          <li class="nav-item cta mr-md-2"><a href="{{ URL::to('/login') }}" class="nav-link">Login</a></li>
 
 	        </ul>
 	      </div>
@@ -71,40 +71,31 @@
     <section class="ftco-section services-section bg-light">
       <div class="container">
         <div class="row d-flex">
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services d-block">
               <div class="
               icon"><span class="flaticon-placeholder"></span></div>
               <div class="media-body">
                 <h3 class="heading mb-3">Lokasi</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis ex, deleniti earum fugit ducimus minima!</p>
+                <p>Jl. Tamalate 1 No 10 makassar</p>
               </div>
             </div>      
           </div>
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-world"></span></div>
+              <div class="icon"><span class="flaticon-idea"></span></div>
               <div class="media-body">
-                <h3 class="heading mb-3">Transport</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis ex, deleniti earum fugit ducimus minima!</p>
+                <h3 class="heading mb-3">Qrcode</h3>
+                <p>Tunjukan qrcode ke panitia event</p>
               </div>
             </div>    
           </div>
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-hotel"></span></div>
+              <div class="icon"><span class="flaticon-handshake"></span></div>
               <div class="media-body">
-                <h3 class="heading mb-3">Hotel</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis ex, deleniti earum fugit ducimus minima!</p>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-cooking"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Restaurant</h3>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis ex, deleniti earum fugit ducimus minima!</p>
+                <h3 class="heading mb-3">Relasi</h3>
+                <p>Bangun relasi bersama maxie skincare</p>
               </div>
             </div>      
           </div>

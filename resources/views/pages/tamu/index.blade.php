@@ -22,17 +22,31 @@
                     <th>No wa</th>
                     <th>Status</th>
                     <th>Kota asal</th>
+                    <th>Share</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($tamu as $row)
+                  <?php
+                    $message = "*Halo * %0a";
+                    $message .= "Undangan ini merupakan undangan resmi dari kami,Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i *" . $row->nama_tamu . "* untuk menghadiri event kami.%0a";
+                    $message .= "Berikut link untuk info lengkap dari acara kami :%0a%0a";
+                    $message .= URL::to(Request::root() . '/' . $row->id_tamu) ." %0a%0a";
+                    $message .= "(Salin link dan buka di browser bila link tidak dapat dibuka, usahakan mematikan fitur dark mode dalam browser untuk hasil yang maksimal)";
+                  ?>
                   <tr>
                     <td>{{ $row->no_team }} </td>
                     <td>{{ $row->facebook }}</td>
                     <td>{{ $row->whatsapp }}</td>
                     <td>{{ $row->status }}</td>
                     <td>{{ $row->kota_asal }} </td>
+                    <td>
+                      <a target="_blank" href="https://web.whatsapp.com/send?phone={{ convertNoHp($row->whatsapp) }}&text={{ $message }}" class="btn btn-success text-white">
+                        <i class="fab fa-whatsapp"></i>
+                             Kirim undangan
+                    </a>
+                    </td>
                     <td class="option">
                       <div class="btn-group dropleft btn-option">
                           <i type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

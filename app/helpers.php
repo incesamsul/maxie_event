@@ -10,22 +10,10 @@ use PhpParser\Node\Expr\FuncCall;
 
 use function PHPUnit\Framework\isNull;
 
-function getKategoriMenu(){
-    return KategoriModel::all();
+function convertNoHp($noHp)
+{
+    return '62' . substr($noHp, 1);
 }
-
-function getNamaKategoriById($idKategori){
-    return KategoriModel::where('id_kategori',$idKategori)->first();
-}
-
-
-function isThisMyFavorit($idInfo){
-    return FavoritModel::where([
-        'id_user' => auth()->user()->id,
-        'id_info' => $idInfo
-    ])->first();
-}
-
 function removeSpace($string)
 {
     return str_replace(" ", "", $string);
