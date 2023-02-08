@@ -76,7 +76,7 @@
                 </div>
                 <div class="form-group">
                   <label for="whatsapp">whatsapp</label>
-                  <input required type="text" class="form-control" name="whatsapp" id="whatsapp">
+                  <input required type="number" class="form-control" name="whatsapp" id="whatsapp">
                 </div>
                 <div class="form-group">
                   <label for="status">status</label>

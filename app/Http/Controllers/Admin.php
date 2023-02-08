@@ -72,14 +72,27 @@ class Admin extends Controller
         return view('pages.scanner.index');
     }
 
-    public function terimaTamu($idTamu) {
-        LastScanned::create([
-            'id_tamu' => $idTamu
-        ]);
+    public function cekTamu($idTamu){
+        $lastScanned = LastScanned::where('id_tamu',$idTamu)->first();
+        if($lastScanned) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
-        Tamu::where('id_tamu', $idTamu)->update([
-            'status_kehadiran' => '1'
-        ]);
+    public function terimaTamu($idTamu) {
+
+        $lastScanned = LastScanned::where('id_tamu', $idTamu)->first();
+        if(!$lastScanned) {
+            LastScanned::create([
+                'id_tamu' => $idTamu
+            ]);
+            Tamu::where('id_tamu', $idTamu)->update([
+                'status_kehadiran' => '1'
+            ]);
+        }
+
         return redirect()->back();
     }
 
@@ -92,11 +105,14 @@ class Admin extends Controller
     }
 
     public function getLastScanned(){
-        return LastScanned::with('tamu')->latest()->first();
+        return LastScanned::where('expired','0')->orderBy('id_last_scanned','desc')->with('tamu')->latest()->first();
     }
 
     public function clearLastScanned(){
-        LastScanned::query()->delete();
+        // LastScanned::query()->delete();
+        LastScanned::where('expired','0')->orderBy('id_last_scanned','desc')->take(1)->update([
+            'expired' => '1',
+        ]);
         return 1;
     }
 

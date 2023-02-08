@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator']], function () {
         Route::get('/clear_last_scanned', [Admin::class, 'clearLastScanned']);
         Route::get('/scanner', [Admin::class, 'scanner']);
         Route::get('/terima/{id_tamu}', [Admin::class, 'terimaTamu']);
+        Route::get('/cek_tamu/{id_tamu}', [Admin::class, 'cekTamu']);
 
         Route::get('/rekap_tamu_hadir', [Admin::class, 'rekapTamuHadir']);
         Route::get('/rekap_tamu_hadir/{status}', [Admin::class, 'rekapTamuHadir']);

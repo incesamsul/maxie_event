@@ -26,8 +26,27 @@
     // Handle on success condition with the decoded text or result.
             // console.log(`Scan result: ${decodedText}`, decodedResult);
             console.log(`Scan result: ${decodedText}`, decodedResult);
-            alert('berhasil');
-            document.location.href = '/admin/terima/' + decodedResult.decodedText;
+            $.ajax({
+                  headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/admin/cek_tamu/' + decodedResult.decodedText,
+                    dataType: 'json',
+                    success: function(data) {
+                      console.log(data);
+                      if(data == 1) {
+                        alert('Barcode anda telah di scan sebelumya');
+                        document.location.reload();
+                      } else {
+                        alert('berhasil melakukan scan, selamat datang');
+                        document.location.href = '/admin/terima/' + decodedResult.decodedText;
+                      }
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                })
+            
         }
 
         function onScanError(errorMessage) {

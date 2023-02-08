@@ -40,7 +40,7 @@
                     $message .= "Undangan ini merupakan undangan resmi dari kami,Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i *" . $row->nama_tamu . "* untuk menghadiri event kami.%0a";
                     $message .= "Berikut link untuk info lengkap dari acara kami :%0a%0a";
                     $message .= URL::to(Request::root() . '/' . $row->id_tamu) ." %0a%0a";
-                    $message .= "(Salin link dan buka di browser bila link tidak dapat dibuka, usahakan mematikan fitur dark mode dalam browser untuk hasil yang maksimal)";
+                    $message .= "(Jangan bagikan link ini kepada siapapun, Salin link dan buka di browser bila link tidak dapat dibuka, usahakan mematikan fitur dark mode dalam browser untuk hasil yang maksimal)";
                   ?>
                   <tr>
                     <td>{{ $row->no_team }} </td>

@@ -16,6 +16,7 @@ class CreateLastScannedTable extends Migration
         Schema::create('last_scanned', function (Blueprint $table) {
             $table->increments('id_last_scanned');
             $table->unsignedInteger('id_tamu');
+            $table->enum('expired',['0','1'])->default('0');
             $table->timestamps();
             $table->foreign('id_tamu')->references('id_tamu')->on('tamu')->onUpdate('cascade')->onDelete('cascade');
         });
