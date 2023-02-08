@@ -198,6 +198,15 @@ class Admin extends Controller
         return 1;
     }
 
+    public function cadangkanKonfirmasiTamu(Request $request) {
+        $user = Tamu::where([
+            ['id_tamu', '=', $request->id_tamu]
+        ])->update([
+            'konfirmasi_tamu' => '2',
+        ]);
+        return 1;
+    }
+
     public function createTamu(Request $request)
     {
         $tamu = Tamu::where('whatsapp', $request->whatsapp)->first();

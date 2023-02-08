@@ -21,7 +21,7 @@ class CreateTamuTable extends Migration
             $table->string('kota_asal');
             $table->enum('status',['agen','distributor','stokis']);
             $table->enum('status_kehadiran',['0','1']);
-            $table->enum('konfirmasi_tamu', ['0','1'])->default('0');
+            $table->enum('konfirmasi_tamu', ['0','1','2'])->default('0');
             $table->timestamps();
         });
     }

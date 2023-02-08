@@ -68,7 +68,19 @@
                 @csrf
                 <div class="form-group">
                   <label for="no_team">no_team</label>
-                  <input required type="text" class="form-control" name="no_team" id="no_team">
+                  <select name="no_team" id="no_team" class="form-control">
+                    <option value="">--Pilih no team--</option>
+                  <option>AO 02</option>
+                  <option>AO 03</option>
+                  <option>AO 04</option>
+                  <option>AO 05</option>
+                  <option>AO 12</option>
+                  <option>AO 14</option>
+                  <option>AO 15</option>
+                  <option>AO 18</option>
+                  <option>AO 26</option>
+                  </select>
+                  {{-- <input required type="text" class="form-control" name="no_team" id="no_team"> --}}
                 </div>
                 <div class="form-group">
                   <label for="facebook">facebook</label>

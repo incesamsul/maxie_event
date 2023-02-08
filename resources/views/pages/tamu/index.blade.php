@@ -30,6 +30,7 @@
                     <th>Kota asal</th>
                     <th>Share</th>
                     <th>Konfirmasi</th>
+                    <th>Aksi</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -51,15 +52,22 @@
                     <td>
                       <a target="_blank" href="https://web.whatsapp.com/send?phone={{ convertNoHp($row->whatsapp) }}&text={{ $message }}" class="btn btn-success text-white">
                         <i class="fab fa-whatsapp"></i>
-                             Kirim undangan
+
                     </a>
                     </td>
-                    <td>
-                      @if($row->konfirmasi_tamu == '0')
-                      <button data-id_tamu="{{ $row->id_tamu }}"  class="btnTimes btn btn-light"><i class="fas fa-times text-danger"></i></button>
+                    <td class="tdKonfirmasi">
+                      @if($row->konfirmasi_tamu == '0') 
+                      <button class="btn btn-light"><i class="fas fa-times text-danger"></i></button>
+                      @elseif($row->konfirmasi_tamu == '1')
+                      <button class="btn btn-light"><i class="fas fa-check text-success"></i></button>
                       @else
-                      <button data-id_tamu="{{ $row->id_tamu }}"  class="btnCheck btn btn-light"><i class="fas fa-check text-success"></i></button>
+                      <button class="btn btn-light"><i class="fas fa-minus text-warning"></i></button>
                       @endif
+                    </td>
+                    <td>
+                      <button data-id_tamu="{{ $row->id_tamu }}"  class="btnTimes btn btn-light"><i class="fas fa-times text-danger"></i></button>
+                      <button data-id_tamu="{{ $row->id_tamu }}"  class="btnCheck btn btn-light"><i class="fas fa-check text-success"></i></button>
+                      <button data-id_tamu="{{ $row->id_tamu }}"  class="btnMinus btn btn-light"><i class="fas fa-minus text-warning"></i></button>
                     </td>
                     <td class="option">
                       <div class="btn-group dropleft btn-option">
@@ -142,9 +150,9 @@
 @section('script')
 <script>
 
-$(document).on('click', '.btnTimes',  function(){
+$(document).on('click', '.btnCheck',  function(){
     let idTamu = $(this).data('id_tamu');
-    var el = $(this);
+    var el = $(this).parent().prev('.tdKonfirmasi');
     $.ajax({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -157,17 +165,16 @@ $(document).on('click', '.btnTimes',  function(){
           }
           , success: function(data) {
               if (data == 1) {
-                  el.html('<i class="fas fa-check text-success"></i>');
-                  el.prop('class','btnCheck btn btn-light');
+                  el.html('<button class="btn btn-light"><i class="fas fa-check text-success"></i></button>');
               }
           }
       })
   })
 
-  $(document).on('click', '.btnCheck', function(){
+  $(document).on('click', '.btnTimes', function(){
    
     let idTamu = $(this).data('id_tamu');
-    var el = $(this);
+    var el = $(this).parent().prev('.tdKonfirmasi');
     $.ajax({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -180,12 +187,34 @@ $(document).on('click', '.btnTimes',  function(){
           }
           , success: function(data) {
               if (data == 1) {
-                el.html('<i class="fas fa-times text-danger"></i>');
-                el.prop('class','btnTimes btn btn-light');
+                el.html('<button class="btn btn-light"><i class="fas fa-times text-danger"></i></button>');
               }
           }
       })
   })
+
+
+  $(document).on('click', '.btnMinus', function(){
+   
+   let idTamu = $(this).data('id_tamu');
+   var el = $(this).parent().prev('.tdKonfirmasi');
+   $.ajax({
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+         , url: '/admin/cadangkan_konfirmasi_tamu'
+         , method: 'post'
+         , dataType: 'json'
+         , data: {
+             id_tamu: idTamu
+         }
+         , success: function(data) {
+             if (data == 1) {
+               el.html('<button class="btn btn-light"><i class="fas fa-minus text-warning"></i></button>');
+             }
+         }
+     })
+ })
 
   $('#btnStokis').on('click', function(){
     document.location.href = '/admin/tamu/stokis';

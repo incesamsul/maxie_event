@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator']], function () {
         // TAMU
         Route::post('/konfirmasi_tamu', [Admin::class, 'konfirmasiTamu']);
         Route::post('/cancel_konfirmasi_tamu', [Admin::class, 'cancelKonfirmasiTamu']);
+        Route::post('/cadangkan_konfirmasi_tamu', [Admin::class, 'cadangkanKonfirmasiTamu']);
 
         // CRUD PENGGUNA
         Route::post('/create_pengguna', [Admin::class, 'createPengguna']);
