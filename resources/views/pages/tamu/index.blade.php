@@ -9,8 +9,14 @@
             <div class="card-header d-flex  justify-content-between">
               <h4>Tamu</h4>
               <div class="table-tools d-flex justify-content-around ">
-                <input type="text" class="form-control card-form-header mr-3" placeholder="Cari Data Pengguna ..." id="cari-data-pengguna">
+                <input type="text" class="form-control card-form-header mr-3" placeholder="Cari Data Pengguna ..." id="searchbox">
                 <button id="addTamu" type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#tamu"><i class="fas fa-plus"></i></button>
+                <button id="btnStokis" type="button" class="btn btn-primary float-right ml-3 ">Stokis</button>
+                <button id="btnDistributor" type="button" class="btn btn-warning float-right ml-3 ">Distributor</button>
+                <button id="btnAgen" type="button" class="btn btn-info float-right ml-3 ">Agen</button>
+                <button id="btnAll" type="button" class="btn btn-success float-right ml-3 ">All</button>
+                <button id="btnConfirm" type="button" class="btn btn-success float-right ml-3 "><i class="fas fa-check"></i></button>
+                <button id="btnNotConfirm" type="button" class="btn btn-danger float-right ml-3 "><i class="fas fa-times"></i></button>
             </div>
             </div>
             <div class="card-body" >
@@ -23,6 +29,7 @@
                     <th>Status</th>
                     <th>Kota asal</th>
                     <th>Share</th>
+                    <th>Konfirmasi</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -46,6 +53,13 @@
                         <i class="fab fa-whatsapp"></i>
                              Kirim undangan
                     </a>
+                    </td>
+                    <td>
+                      @if($row->konfirmasi_tamu == '0')
+                      <button data-id_tamu="{{ $row->id_tamu }}"  class="btnTimes btn btn-light"><i class="fas fa-times text-danger"></i></button>
+                      @else
+                      <button data-id_tamu="{{ $row->id_tamu }}"  class="btnCheck btn btn-light"><i class="fas fa-check text-success"></i></button>
+                      @endif
                     </td>
                     <td class="option">
                       <div class="btn-group dropleft btn-option">
@@ -127,6 +141,76 @@
 @endsection
 @section('script')
 <script>
+
+$(document).on('click', '.btnTimes',  function(){
+    let idTamu = $(this).data('id_tamu');
+    var el = $(this);
+    $.ajax({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+          , url: '/admin/konfirmasi_tamu'
+          , method: 'post'
+          , dataType: 'json'
+          , data: {
+              id_tamu: idTamu
+          }
+          , success: function(data) {
+              if (data == 1) {
+                  el.html('<i class="fas fa-check text-success"></i>');
+                  el.prop('class','btnCheck btn btn-light');
+              }
+          }
+      })
+  })
+
+  $(document).on('click', '.btnCheck', function(){
+   
+    let idTamu = $(this).data('id_tamu');
+    var el = $(this);
+    $.ajax({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+          , url: '/admin/cancel_konfirmasi_tamu'
+          , method: 'post'
+          , dataType: 'json'
+          , data: {
+              id_tamu: idTamu
+          }
+          , success: function(data) {
+              if (data == 1) {
+                el.html('<i class="fas fa-times text-danger"></i>');
+                el.prop('class','btnTimes btn btn-light');
+              }
+          }
+      })
+  })
+
+  $('#btnStokis').on('click', function(){
+    document.location.href = '/admin/tamu/stokis';
+  })
+
+  $('#btnDistributor').on('click', function(){
+    document.location.href = '/admin/tamu/distributor';
+  })
+
+  $('#btnAgen').on('click', function(){
+    document.location.href = '/admin/tamu/agen';
+  })
+
+  $('#btnAll').on('click', function(){
+    document.location.href = '/admin/tamu';
+  })
+
+  $('#btnConfirm').on('click', function(){
+    document.location.href = '/admin/tamu/confirm';
+  })
+
+  $('#btnNotConfirm').on('click', function(){
+    document.location.href = '/admin/tamu/not_confirm';
+  })
+
   // TOMBOL EDIT USER
   $('.table tbody').on('click', '.edit', function() {
             let tamu = $(this).data('pengguna');

@@ -25,9 +25,20 @@
     <link rel="stylesheet" href="{{ asset('eventalk-master/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('eventalk-master/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('eventalk-master/css/style.css') }}">
+
+     {{-- sweetalert --}}
+     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
+
   </head>
   <body>
     
+    @if (session('message'))
+    {{ sweetAlert(session('message'), 'success') }}
+    @endif
+    @if (session('error'))
+    {{ sweetAlert(session('error'), 'warning') }}
+    @endif
+
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="#">Maxie<span>Skincare.</span></a>
@@ -49,94 +60,45 @@
 	    </div>
 	  </nav>
     <!-- END nav -->
-    
-    <div class="hero-wrap js-fullheight" style="background-image: url('eventalk-master/images/logo.png');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text  js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
-          <div class="col-xl-10 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-            <h1 class="mb-4 " data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">  Reward <br><span>Maxie skincare</span></h1>
-            <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Februari 12, 2023. Makassar, Indonesia</p>
-            <div id="timer" class="d-flex mb-3">
-						  <div class="time" id="days"></div>
-						  <div class="time pl-4" id="hours"></div>
-						  <div class="time pl-4" id="minutes"></div>
-						  <div class="time pl-4" id="seconds"></div>
-						</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <section class="ftco-section services-section bg-light">
-      <div class="container">
-        <div class="row d-flex">
-          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="
-              icon"><span class="flaticon-placeholder"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Lokasi</h3>
-                <p>Hotel Four Point</p>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-idea"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Qrcode</h3>
-                <p>Tunjukan qrcode ke panitia event</p>
-              </div>
-            </div>    
-          </div>
-          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-handshake"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Relasi</h3>
-                <p>Bangun relasi bersama maxie skincare</p>
-              </div>
-            </div>      
-          </div>
-        </div>
-      </div>
-    </section>
-   	
-   
-
-    
-   @if($id_tamu !== null && $tamu)
-   <section>
-    <div class="container my-4">
-        <div class="row">
-            <div class="col-sm-12">
-                <h4>Detail Tamu</h4>
+      <section class="ftco-section services-section bg-light">
+        <div class="container">
+          <div class="row d-flex">
+            <div class="col-md-6 offset-sm-3">
+              <form id="formTamu" action="{{ URL::to('/create_tamu') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                  <label for="no_team">no_team</label>
+                  <input required type="text" class="form-control" name="no_team" id="no_team">
+                </div>
+                <div class="form-group">
+                  <label for="facebook">facebook</label>
+                  <input required type="text" class="form-control" name="facebook" id="facebook">
+                </div>
+                <div class="form-group">
+                  <label for="whatsapp">whatsapp</label>
+                  <input required type="text" class="form-control" name="whatsapp" id="whatsapp">
+                </div>
+                <div class="form-group">
+                  <label for="status">status</label>
+                  <select required name="status" id="status" class="form-control">
+                    <option value="">--pilih status--</option>
+                    <option>agen</option>
+                    <option>distributor</option>
+                    <option>stokis</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="kota_asal">kota_asal</label>
+                  <input required type="text" class="form-control" name="kota_asal" id="kota_asal">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary form-control">Daftar</button>
+                </form>
+                </div>
             </div>
+          </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3">
-                {{-- qrcode here --}}
-                <div id="qrcode_tamu"></div>
-            </div>
-            <div class="col-sm-9">
-                <p><i class="fas fa-users"></i> No Team : {{ $tamu-> no_team }}</p>
-                <p><i class="fab fa-facebook"></i> Facebook : {{ $tamu->facebook }}</p>
-                <p><i class="fab fa-whatsapp"></i> Whatsapp : {{ $tamu->whatsapp }}</p>
-                <p><i class="fas fa-location"></i> Kota asal : {{ $tamu->kota_asal }}</p>
-                <p><i class="fas fa-sync"></i> Status : {{ $tamu->status }}</p>
-
-            </div>
-        </div>
-    </div>
-</section>
-   @endif
-
-
-		
-	
-   
-
+      </section>
     <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row">
@@ -177,18 +139,9 @@
 <script src="{{ asset('plugins/scanner/html5-qrcode.min.js') }}"></script>
 
 <script src="{{ asset('plugins/qrcodejs/qrcode.min.js') }}"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var qrcode = new QRCode("qrcode_tamu", {
-            text: '{{ $id_tamu }}',
-            width: 200,
-            height: 200,
-            colorDark : "#222831",
-            colorLight : "#fff",
-            correctLevel : QRCode.CorrectLevel.H
-        });
 
-    });
-</script>
+    {{-- sweet alert --}}
+<script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
   </body>
 </html>

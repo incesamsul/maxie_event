@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Models\Tamu;
 use Illuminate\Http\Request;
 use Illuminate\Filesystem\Filesystem;
 
@@ -20,7 +21,23 @@ class General extends Controller
 
     public function dashboard()
     {
-        return view('pages.dashboard.index');
+        $data['hadir_agen'] = Tamu::where('status_kehadiran','1')->where('status','agen')->get();
+        $data['hadir_distributor'] = Tamu::where('status_kehadiran','1')->where('status','distributor')->get();
+        $data['hadir_stokis'] = Tamu::where('status_kehadiran','1')->where('status','stokis')->get();
+
+        $data['tidak_hadir_agen'] = Tamu::where('status_kehadiran','0')->where('status','agen')->get();
+        $data['tidak_hadir_distributor'] = Tamu::where('status_kehadiran','0')->where('status','distributor')->get();
+        $data['tidak_hadir_stokis'] = Tamu::where('status_kehadiran','0')->where('status','stokis')->get();
+        $data['total_tidak_hadir'] = Tamu::where('status_kehadiran','0')->get();
+        $data['total_hadir'] = Tamu::where('status_kehadiran','1')->get();
+
+        $data['total_agen'] = Tamu::where('status','agen')->get();
+        $data['total_distributor'] = Tamu::where('status','distributor')->get();
+        $data['total_stokis'] = Tamu::where('status','stokis')->get();
+
+        $data['total_tamu'] = Tamu::all();
+
+        return view('pages.dashboard.index',$data);
     }
 
     public function profile()

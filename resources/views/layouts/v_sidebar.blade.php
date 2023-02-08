@@ -36,7 +36,11 @@
                 class="fas fa-smile"></i> <span>Sambutan</span></a></li>
             <li class="" id="liScanner"><a class="nav-link" href="{{ URL::to('/admin/scanner') }}"><i
                 class="fas fa-qrcode"></i> <span>Scanner</span></a></li>
-
+            <li class="" id="liRekapTamuHadir"><a class="nav-link" href="{{ URL::to('/admin/rekap_tamu_hadir') }}"><i
+                class="fas fa-list"></i> <span>Rekap tamu hadir</span></a></li>
+            <li class="" id="liRekapTamuTidakHadir"><a class="nav-link" href="{{ URL::to('/admin/rekap_tamu_tidak_hadir') }}"><i
+                class="fas fa-list"></i> <span>Rekap tamu tidak hadir</span></a></li>
+                
 
             {{-- END OF MENU ADMIN --}}
             @endif

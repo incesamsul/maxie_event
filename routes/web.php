@@ -29,7 +29,9 @@ Route::post('/postlogin', [LoginController::class, 'postLogin']);
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/', [Home::class, 'index']);
 Route::get('/login', [LoginController::class, 'login']);
-
+Route::get('/register', [Home::class, 'register']);
+ // CRUD TAMU
+ Route::post('/create_tamu', [Admin::class, 'createTamu']);
 
 Route::get('/tentang_aplikasi', [Home::class, 'tentangAplikasi']);
 
@@ -51,7 +53,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator,user,penilai']], 
 
 // ADMIN ROUTE
 Route::group(['middleware' => ['auth', 'ceklevel:user']], function () {
-
+    
 });
 
 
@@ -62,12 +64,22 @@ Route::group(['middleware' => ['auth', 'ceklevel:Administrator']], function () {
         Route::get('/pengguna', [Admin::class, 'pengguna']);
         Route::get('/fetch_data', [Admin::class, 'fetchData']);
         Route::get('/tamu', [Admin::class, 'tamu']);
+        Route::get('/tamu/{status}', [Admin::class, 'tamu']);
         Route::get('/sambutan', [Admin::class, 'sambutan']);
         Route::get('/get_last_scanned', [Admin::class, 'getLastScanned']);
         Route::get('/clear_last_scanned', [Admin::class, 'clearLastScanned']);
         Route::get('/scanner', [Admin::class, 'scanner']);
         Route::get('/terima/{id_tamu}', [Admin::class, 'terimaTamu']);
+
+        Route::get('/rekap_tamu_hadir', [Admin::class, 'rekapTamuHadir']);
+        Route::get('/rekap_tamu_hadir/{status}', [Admin::class, 'rekapTamuHadir']);
+
+        Route::get('/rekap_tamu_tidak_hadir', [Admin::class, 'rekapTamuTidakHadir']);
+        Route::get('/rekap_tamu_tidak_hadir/{status}', [Admin::class, 'rekapTamuTidakHadir']);
         
+        // TAMU
+        Route::post('/konfirmasi_tamu', [Admin::class, 'konfirmasiTamu']);
+        Route::post('/cancel_konfirmasi_tamu', [Admin::class, 'cancelKonfirmasiTamu']);
 
         // CRUD PENGGUNA
         Route::post('/create_pengguna', [Admin::class, 'createPengguna']);
