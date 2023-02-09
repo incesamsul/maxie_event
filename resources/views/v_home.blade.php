@@ -28,7 +28,9 @@
   </head>
   <body>
     
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+   
+	  @mobile
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="#">Maxie<span>Skincare.</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +50,21 @@
 	      </div>
 	    </div>
 	  </nav>
+    @endmobile
     <!-- END nav -->
+    
+    @desktop
+    <div class="overlay-hero ">
+      <img src="{{ asset('eventalk-master/images/hero.jpg') }}" alt="hero" style="width: 100%">
+    </div>
+    @enddesktop
+
+    @mobile
+    <div class="overlay-hero ">
+      <img src="{{ asset('eventalk-master/images/hero_mobile.jpg') }}" alt="hero" style="width: 100%; height:100vh">
+    </div>
+    @endmobile
+
     
     <div class="hero-wrap js-fullheight" style="background-image: url('eventalk-master/images/logo.png');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
