@@ -17,6 +17,7 @@
                 <button id="btnAll" type="button" class="btn btn-success float-right ml-3 ">All</button>
                 <button id="btnConfirm" type="button" class="btn btn-success float-right ml-3 "><i class="fas fa-check"></i></button>
                 <button id="btnNotConfirm" type="button" class="btn btn-danger float-right ml-3 "><i class="fas fa-times"></i></button>
+                <button id="btnCadangan" type="button" class="btn btn-warning float-right ml-3 "><i class="fas fa-minus"></i></button>
             </div>
             </div>
             <div class="card-body" >
@@ -238,6 +239,10 @@ $(document).on('click', '.btnCheck',  function(){
 
   $('#btnNotConfirm').on('click', function(){
     document.location.href = '/admin/tamu/not_confirm';
+  })
+
+  $('#btnCadangan').on('click', function(){
+    document.location.href = '/admin/tamu/cadangan';
   })
 
   // TOMBOL EDIT USER

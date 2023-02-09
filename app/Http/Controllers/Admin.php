@@ -34,6 +34,8 @@ class Admin extends Controller
     {
         if($status == 'confirm') {
             $data['tamu'] = Tamu::where('konfirmasi_tamu','1')->get();
+        } else if($status == 'cadangan') {
+            $data['tamu'] = Tamu::where('konfirmasi_tamu','2')->get();
         } else if($status == 'not_confirm') {
             $data['tamu'] = Tamu::where('konfirmasi_tamu','0')->get();
         } else if($status != null){
