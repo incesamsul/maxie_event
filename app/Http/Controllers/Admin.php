@@ -83,6 +83,15 @@ class Admin extends Controller
         }
     }
 
+    public function verifikasiTamu($whatsapp, $idTamu) {
+        $tamu = Tamu::where('id_tamu',$idTamu)->first();
+        if($whatsapp == $tamu->whatsapp) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public function terimaTamu($idTamu) {
 
         $lastScanned = LastScanned::where('id_tamu', $idTamu)->first();

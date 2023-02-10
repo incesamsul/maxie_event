@@ -30,6 +30,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/', [Home::class, 'index']);
 Route::get('/login', [LoginController::class, 'login']);
 Route::get('/register', [Home::class, 'register']);
+Route::get('/verifikasi_tamu/{whatsapp}/{id_tamu}', [Admin::class, 'verifikasiTamu']);
  // CRUD TAMU
  Route::post('/create_tamu', [Admin::class, 'createTamu']);
 

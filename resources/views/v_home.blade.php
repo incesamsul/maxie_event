@@ -4,6 +4,9 @@
     <title>Maxie skincare</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {{-- csrf token --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
@@ -27,6 +30,23 @@
     <link rel="stylesheet" href="{{ asset('eventalk-master/css/style.css') }}">
   </head>
   <body>
+
+    @if($id_tamu !== null && $tamu)
+    <div id="verifikasi_tamu" class="d-flex align-items-center justify-content-center">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="whatsapp">Harap masukkan no whatsapp anda</label>
+            <input type="number" class="form-control" id="whatsapp">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary form-control" id="btnVerifikasi">Verifikasi</button>
+            <p id="feedbackMessage"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
     
    
 	  @mobile
@@ -194,6 +214,44 @@
 
 <script src="{{ asset('plugins/qrcodejs/qrcode.min.js') }}"></script>
 <script>
+
+    $('#btnVerifikasi').on('click',function(){
+
+      let parent = $(this);
+      parent.html('wait....');
+
+      let whatsapp = $('#whatsapp').val();
+      if(whatsapp == '' || whatsapp == null) {
+        $('#feedbackMessage').html('isi no whatsapp dulu');
+      } else {
+        $('#feedbackMessage').html('');
+      }
+      $.ajax({
+        headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '/verifikasi_tamu/' + whatsapp + '/' + '{{ $id_tamu }}',
+          // dataType: 'json',
+          success: function(data) {
+            console.log(data);
+            if(data == 1) {
+              $('#feedbackMessage').html('Verifikasi berhasil.')
+              setTimeout(() => {
+                $('#verifikasi_tamu').remove();
+              }, 2000);
+            } else {
+              $('#feedbackMessage').html('Verifikasi gagal.')
+            }
+          },
+          error: function(err) {
+              console.log(err);
+          },
+          complete: function(){
+            parent.html('Verifikasi');
+          }
+      })
+    })
+
     document.addEventListener("DOMContentLoaded", function() {
         var qrcode = new QRCode("qrcode_tamu", {
             text: '{{ $id_tamu }}',

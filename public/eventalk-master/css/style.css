@@ -8899,3 +8899,16 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+
+    /* MY OWN CODE */
+
+    /* VERIFIKASI TAMU */
+
+    #verifikasi_tamu{
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      background-color: white;
+      z-index: 1000;
+    }
