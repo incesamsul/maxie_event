@@ -97,7 +97,8 @@ class Admin extends Controller
         $lastScanned = LastScanned::where('id_tamu', $idTamu)->first();
         if(!$lastScanned) {
             LastScanned::create([
-                'id_tamu' => $idTamu
+                'id_tamu' => $idTamu,
+                'id_user' => auth()->user()->id,
             ]);
             Tamu::where('id_tamu', $idTamu)->update([
                 'status_kehadiran' => '1'
@@ -116,7 +117,7 @@ class Admin extends Controller
     }
 
     public function getLastScanned(){
-        return LastScanned::where('expired','0')->orderBy('id_last_scanned','desc')->with('tamu')->latest()->first();
+        return LastScanned::where('expired','0')->where('id_user', auth()->user()->id)->orderBy('id_last_scanned','desc')->with('tamu')->latest()->first();
     }
 
     public function clearLastScanned(){
